@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  vue-app:
+    build: .
+    ports:
+      - "8080:5000"
+    environment:
+      - NODE_ENV=production
+  express-server:
+    build: ./server
+    ports:
+      - "3000:3000"
