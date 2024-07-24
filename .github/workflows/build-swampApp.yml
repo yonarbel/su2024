@@ -61,6 +61,7 @@ jobs:
       id: build
       with:
         push: true
+        no-cache: true
         tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
         provenance: false
         
