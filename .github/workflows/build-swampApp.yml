@@ -15,8 +15,8 @@ jobs:
   build-publish-docker:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: 'codeninjas-proj-docker-local'
-      IMAGE_NAME: 'ninja-image:1'
+      DOCKER_REPO: 'docker'
+      IMAGE_NAME: 'swampApp:${GITHUB_RUN_NUMBER}'
       JF_URL: https://${{ vars.JF_URL }}/
       
     steps:
