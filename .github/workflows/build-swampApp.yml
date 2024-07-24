@@ -39,9 +39,6 @@ jobs:
       run: |
          jf npm ci
          npm run build
-      
-    - name: Checking out again to have dist
-      uses: actions/checkout@v4
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
