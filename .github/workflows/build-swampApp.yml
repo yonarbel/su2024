@@ -39,6 +39,9 @@ jobs:
       run: |
          jf npm ci
          npm run build
+      
+    - name: List files
+      run: ls -la
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
