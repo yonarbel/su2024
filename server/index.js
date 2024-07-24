@@ -2,8 +2,8 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const key = 'sgAFGakaZs212';
-const token = 'eyJhbG';
+const key = '0d6a9bb5af126f73350a2afc058492765446aaad';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuYXV0aDAuY29tLyIsImF1ZCI6Imh0dHBzOi8vYXBpLmV4YW1wbGUuY29tL2NhbGFuZGFyL3YxLyIsInN1YiI6InVzcl8xMjMiLCJpYXQiOjE0NTg3ODU3OTYsImV4cCI6MTQ1ODg3MjE5Nn0.CA7eaHjIHz5NxeIJoFK9krqaeZrPLwmMmgI_XiQiIkQ';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +16,8 @@ app.get('/api/ping', (req, res) => {
 });
 
 app.get('/api/user', (req, res) => {
+  const url = `https://api.github.com/user?key=${key}`;
+  const auth_url = `https://myuser:0d6a9bb5af126f73350a2afc058492765446aaad@api.github.com`
   // Get the user endpoint from the request query parameters
   const userEndpoint = req.query.endpoint;
 
