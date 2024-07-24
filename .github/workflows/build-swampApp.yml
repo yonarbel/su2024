@@ -15,8 +15,8 @@ jobs:
   build-publish-docker:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: 'docker'
-      IMAGE_NAME: 'swampApp:${GITHUB_RUN_NUMBER}'
+      DOCKER_REPO: docker
+      IMAGE_NAME: swampApp:$(date +%s)
       JF_URL: https://${{ vars.JF_URL }}/
       
     steps:
