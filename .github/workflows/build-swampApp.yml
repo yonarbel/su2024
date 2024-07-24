@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKER_REPO: docker
-      IMAGE_NAME: swampApp:$(date +%s)
+      IMAGE_NAME: swampApp
       JF_URL: https://${{ vars.JF_URL }}/
       
     steps:
