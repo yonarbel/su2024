@@ -1,5 +1,5 @@
 # Use the official Node.js 14 image as a parent image
-FROM node:20
+FROM node:18
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
@@ -8,11 +8,9 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY package-lock.json ./
 
-# Install dependencies
-RUN npm ci
-
 # Copy the dist folder and server folder from your project into the container
 COPY dist/ ./dist
+COPY node_modules/ ./node_modules
 COPY server/ ./server
 
 # Expose the port the app runs on
