@@ -13,7 +13,7 @@ permissions:
   
 jobs:
   build-publish-docker:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     env:
       DOCKER_REPO: docker
       IMAGE_NAME: swampapp
@@ -61,7 +61,6 @@ jobs:
       id: build
       with:
         push: true
-        platforms: linux/amd64, linux/arm64
         tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
         provenance: false
         
