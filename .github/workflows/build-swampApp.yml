@@ -2,9 +2,9 @@ name: SwampApp
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "before_integration" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "before_integration" ]
 permissions:
   actions: read # for detecting the Github Actions environment.
   id-token: write # for creating OIDC tokens for signing.
@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@v4
     
     - name: Setup JFrog CLI
-      uses: jfrog/setup-jfrog-cli@v4
+      uses: jfrog/setup-jfrog-cli@v3
       id: setup-cli
       env:
        JF_URL: https://${{ vars.JF_URL }}/
