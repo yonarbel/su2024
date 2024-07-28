@@ -3,7 +3,8 @@ on:
   push:
     branches: [ "before_integration" ]
   pull_request:
-    branches: [ "before_integration" ]
+   branches: [ "before_integration" ]
+   
 permissions:
   actions: read # for detecting the Github Actions environment.
   id-token: write # for creating OIDC tokens for signing.
