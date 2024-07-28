@@ -1,4 +1,4 @@
-name: SwampApp
+
 on:
   push:
     branches: [ "main" ]
