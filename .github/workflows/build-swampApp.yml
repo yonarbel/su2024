@@ -34,7 +34,7 @@ jobs:
       with:
         oidc-provider-name: jfrog-github-oidc
     - name: Set CLI Config
-      run: jf npm-config --global=true --repo-resolve=npm-virtual --repo-deploy=npm-virtual
+      run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
       
     - name: build webapp
       run: |
