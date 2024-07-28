@@ -56,6 +56,7 @@ jobs:
       
     - name: List dist contents
       run: ls -la dist
+
       
     - name: Build the Docker image
       uses: docker/build-push-action@v6
