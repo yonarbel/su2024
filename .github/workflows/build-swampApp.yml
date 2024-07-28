@@ -1,5 +1,4 @@
 name: SwampApp
-
 on:
   push:
     branches: [ "before_integration" ]
