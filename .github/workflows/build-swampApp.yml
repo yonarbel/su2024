@@ -1,4 +1,4 @@
-name: SwampApp
+name: SomeBuild
 on:
   push:
     branches: [ "before_integration" ]
