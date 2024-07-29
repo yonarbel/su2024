@@ -18,7 +18,9 @@ jobs:
       DOCKER_REPO: docker
       IMAGE_NAME: swampapp
       JF_URL: https://${{ vars.JF_URL }}/
-      
+      DOCKER_BUILD_SUMMARY: false
+      DOCKER_BUILD_RECORD_UPLOAD: false
+     
     steps:
 
     - name: Checkout the repository
