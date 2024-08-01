@@ -39,6 +39,7 @@ jobs:
     - name: build webapp
       run: |
          jf npm ci
+         jf npm publish
          npm run build
 
     - name: Set up Docker Buildx
