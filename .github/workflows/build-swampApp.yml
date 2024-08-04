@@ -33,7 +33,6 @@ jobs:
        JF_URL: https://${{ vars.JF_URL }}/
        JF_PROJECT: ${{ vars.JF_PROJECT }}
       with:
-        version: 2.59.1
         oidc-provider-name: jfrog-github-oidc
     - name: Set CLI Config
       run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
