@@ -19,14 +19,13 @@ jobs:
       JF_URL: https://${{ vars.JF_URL }}/
       DOCKER_BUILD_SUMMARY: false
       DOCKER_BUILD_RECORD_UPLOAD: false
-      DOCKER_CLI_EXPERIMENTAL: enabled
       JFROG_CLI_LOG_LEVEL: DEBUG
-     
+
     steps:
 
     - name: Checkout the repository
       uses: actions/checkout@v4
-    
+
     - name: Setup JFrog CLI
       uses: jfrog/setup-jfrog-cli@v4
       id: setup-cli
@@ -37,22 +36,15 @@ jobs:
         oidc-provider-name: jfrog-github-oidc
     - name: Set CLI Config
       run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
-      
+
     - name: build webapp
       run: |
          jf npm ci
          jf npm publish
          npm run build
 
-    - name: Setup buildx instance
+    - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-      with:
-        use: true
-        platforms: linux/amd64,linux/arm64
-        install: true
-
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3 
 
     - name: Authenticate Docker
       uses: docker/login-action@v3
@@ -63,38 +55,36 @@ jobs:
 
     - name: List files
       run: ls -la
-      
+
     - name: List dist contents
       run: ls -la dist
-      
-    - name: docker build through 
-      run: |  
-           docker buildx ls
-           jf docker --version
-           jf docker build --tag ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --platform linux/amd64,linux/arm64 --metadata-file  metadata.json --push .
-        
+
+    - name: Build the Docker image
+      uses: docker/build-push-action@v6
+      id: build
+      with:
+        push: true
+        context: .
+        platforms: linux/amd64,linux/arm64
+        tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
+        provenance: false
+
     - name: docker scan
-      run: |  
+      run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
            jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-    
+
     - name: add docker package to build
-      run: |  
-            echo "----------------"
-            cat metadata.json
-            echo "----------------"
-            digest=$(cat metadata.json | jq '.["containerimage.digest"]')
-            echo "digest=$digest"
-            echo "${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}@$digest" > metadata.json
-            jf rt build-docker-create ${{ env.DOCKER_REPO }} --image-file metadata.json 
-            
+      run: |
+           echo "${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}" > metadata.json
+           jf rt build-docker-create ${{ env.DOCKER_REPO }} --image-file metadata.json
+
     - name: publish build info
       run: |
-          jf rt build-collect-env 
-          jf rt build-add-dependencies .
-          jf rt build-add-git
-          jf rt build-publish
+           jf rt build-collect-env
+           jf rt build-add-git
+           jf rt build-publish
 
     - name: build scan
-      run: |            
+      run: |
             jf build-scan
