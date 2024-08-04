@@ -19,6 +19,7 @@ jobs:
       JF_URL: https://${{ vars.JF_URL }}/
       DOCKER_BUILD_SUMMARY: false
       DOCKER_BUILD_RECORD_UPLOAD: false
+      DOCKER_CLI_EXPERIMENTAL: enabled
       JFROG_CLI_LOG_LEVEL: DEBUG
      
     steps:
