@@ -15,7 +15,7 @@ jobs:
   build-publish-docker:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: docker
+      DOCKER_REPO: swmampapp-docker
       IMAGE_NAME: swampapp
       JF_URL: https://${{ vars.JF_URL }}/
       DOCKER_BUILD_SUMMARY: false
@@ -37,7 +37,7 @@ jobs:
         oidc-provider-name: jfrog-github-oidc
         version: 2.63.1
     - name: Set CLI Config
-      run: jf npm-config --global=true --repo-resolve=npm --repo-deploy=npm
+      run: jf npm-config --global=true --repo-resolve=swampapp-npm --repo-deploy=swampapp-npm
 
     - name: build webapp
       run: |
