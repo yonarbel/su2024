@@ -35,6 +35,7 @@ jobs:
        JF_PROJECT: ${{ vars.JF_PROJECT }}
       with:
         oidc-provider-name: jfrog-github-oidc
+        version: 2.63.1
     - name: Set CLI Config
       run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
 
