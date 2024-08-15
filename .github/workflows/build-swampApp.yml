@@ -89,4 +89,4 @@ jobs:
 
     - name: build scan
       run: |
-            jf build-scan
+            jf build-scan --vuln
