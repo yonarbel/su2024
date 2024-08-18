@@ -73,7 +73,7 @@ jobs:
     - name: docker scan
       run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --vuln
+           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
 
     - name: add docker package to build
       run: |
@@ -88,4 +88,4 @@ jobs:
 
     - name: build scan
       run: |
-            jf build-scan --vuln
+            jf build-scan 
