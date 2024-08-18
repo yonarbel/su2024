@@ -14,7 +14,7 @@ jobs:
   build-publish-docker:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: swampapp-dockervu
+      DOCKER_REPO: swampapp-docker
       IMAGE_NAME: swampapp
       JF_URL: https://${{ vars.JF_URL }}/
       DOCKER_BUILD_SUMMARY: false
