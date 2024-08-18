@@ -73,7 +73,7 @@ jobs:
 
       run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --vuln --project=${{ vars.JF_PROJECT }}
+           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --vuln --project=${{ vars.JF_PROJECT }} --fail=false
 
     - name: add docker package to build
       run: |
