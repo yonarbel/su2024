@@ -1,4 +1,4 @@
-name: SwampApppTest
+name: SwampApp
 on:
   push:
     branches: [ "main" ]
@@ -70,10 +70,10 @@ jobs:
         provenance: false
 
     - name: docker scan
-      if: ${{ false }}
+
       run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
+           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --vulns
 
     - name: add docker package to build
       run: |
@@ -88,4 +88,4 @@ jobs:
 
     - name: build scan
       run: |
-            jf build-scan 
+            jf build-scan --vulns
