@@ -14,7 +14,7 @@ jobs:
   build-publish-docker:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: swampapp-docker
+      DOCKER_REPO: swampapp-dockervu
       IMAGE_NAME: swampapp
       JF_URL: https://${{ vars.JF_URL }}/
       DOCKER_BUILD_SUMMARY: false
@@ -73,7 +73,7 @@ jobs:
 
       run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --vulns
+           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --vuln
 
     - name: add docker package to build
       run: |
@@ -88,4 +88,4 @@ jobs:
 
     - name: build scan
       run: |
-            jf build-scan --vulns
+            jf build-scan --vuln
