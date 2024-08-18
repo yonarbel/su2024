@@ -1,4 +1,4 @@
-name: SwampApp
+name: SwampApppTest
 on:
   push:
     branches: [ "main" ]
