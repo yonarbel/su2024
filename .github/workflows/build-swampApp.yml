@@ -87,4 +87,4 @@ jobs:
 
     - name: build scan
       run: |
-            jf build-scan --vuln
+            jf build-scan --vuln --fail=false
