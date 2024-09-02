@@ -71,8 +71,8 @@ jobs:
     - name: docker scan
 
       run: |
-           jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
-           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }} --vuln --project=${{ vars.JF_PROJECT }} --fail=false
+           jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest
+           jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest --vuln --project=${{ vars.JF_PROJECT }} --fail=false
 
     - name: add docker package to build
       run: |
@@ -86,6 +86,5 @@ jobs:
            jf rt build-publish
 
     - name: build scan
-      if: ${{ false }}
       run: |
             jf build-scan --vuln --fail=false
