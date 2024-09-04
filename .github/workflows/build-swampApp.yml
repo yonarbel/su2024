@@ -8,6 +8,7 @@ permissions:
   actions: read # for detecting the Github Actions environment.
   id-token: write # for creating OIDC tokens for signing.
   packages: write # for uploading attestations.
+  security-events: write # Required for uploading code scanning
   contents: read
 
 jobs:
@@ -29,8 +30,10 @@ jobs:
       uses: jfrog/setup-jfrog-cli@v4
       id: setup-cli
       env:
-       JF_URL: https://${{ vars.JF_URL }}/
-       JF_PROJECT: ${{ vars.JF_PROJECT }}
+        JF_URL: https://${{ vars.JF_URL }}/
+        JF_PROJECT: ${{ vars.JF_PROJECT }}
+        # Required for uploading code scanning.
+        JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         oidc-provider-name: jfrog-github-oidc
     - name: Set CLI Config
