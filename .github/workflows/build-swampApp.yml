@@ -1,4 +1,4 @@
-name: SwampApp
+name: devrel
 on:
   push:
     branches: [ "main" ]
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKER_REPO: devrel-docker
-      IMAGE_NAME: swampapp
+      IMAGE_NAME: devrel
       JF_URL: https://${{ vars.JF_URL }}/
       DOCKER_BUILD_SUMMARY: false
       DOCKER_BUILD_RECORD_UPLOAD: false
@@ -36,7 +36,7 @@ jobs:
       with:
         oidc-provider-name: jfrog-github-oidc
     - name: Set CLI Config
-      run: jf npm-config --global=true --repo-resolve=swampapp-npm --repo-deploy=swampapp-npm
+      run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
 
     - name: build webapp
       run: |
