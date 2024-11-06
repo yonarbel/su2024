@@ -31,7 +31,6 @@ jobs:
       id: setup-cli
       env:
         JF_URL: https://${{ vars.JF_URL }}/
-        JF_PROJECT: ${{ vars.JF_PROJECT }}
         # Required for uploading code scanning.
         JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
