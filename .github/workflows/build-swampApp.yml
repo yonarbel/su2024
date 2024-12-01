@@ -31,8 +31,6 @@ jobs:
       id: setup-cli
       env:
         JF_URL: https://${{ vars.JF_URL }}/
-        # Required for uploading code scanning.
-        JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         oidc-provider-name: jfrog-github-oidc
     
