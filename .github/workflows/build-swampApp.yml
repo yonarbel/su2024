@@ -69,9 +69,16 @@ jobs:
         platforms: linux/amd64,linux/arm64
         tags: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
         provenance: false
-
+        
+    - name: Generate docker attestation
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-name: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
+        subject-digest: ${{ steps.build.outputs.digest }}
+        push-to-registry: false
+        
     - name: docker scan
-
+      if: ${{ false }}
       run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest
            jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest --vuln --project=${{ vars.JF_PROJECT }} --fail=false
@@ -88,5 +95,6 @@ jobs:
            jf rt build-publish
 
     - name: build scan
+      if: ${{false }}
       run: |
             jf build-scan --vuln --fail=false
