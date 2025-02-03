@@ -66,6 +66,7 @@ jobs:
         provenance: false
         
     - name: Generate docker attestation
+      if: ${{ false }}
       uses: actions/attest-build-provenance@v1
       with:
         subject-name: ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}
