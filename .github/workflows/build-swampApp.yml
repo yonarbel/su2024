@@ -91,10 +91,10 @@ jobs:
            jf rt build-add-git
            jf rt build-publish
 
-    - name: Sleep for 30 seconds
+    - name: Sleep for 60 seconds
       uses: jakejarvis/wait-action@master
       with:
-        time: '10s'
+        time: '60s'
         
     - name: build scan
       if: ${{ true }}
