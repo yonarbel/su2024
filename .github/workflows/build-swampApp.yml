@@ -75,7 +75,7 @@ jobs:
         push-to-registry: false
         
     - name: docker scan
-      if: ${{ false }}
+      if: ${{ true }}
       run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest
            jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest --vuln  --fail=false
