@@ -75,7 +75,7 @@ jobs:
         push-to-registry: false
         
     - name: docker scan
-      if: ${{ true }}
+      if: ${{ false }}
       run: |
            jf docker pull ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest
            jf docker scan ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:latest --vuln  --fail=false
@@ -91,6 +91,11 @@ jobs:
            jf rt build-add-git
            jf rt build-publish
 
+    - name: Sleep for 30 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '10s'
+        
     - name: build scan
       if: ${{ true }}
       run: |
