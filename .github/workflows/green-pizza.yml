@@ -13,7 +13,7 @@ jobs:
   build-publish-docker:
     runs-on: ubuntu-latest
     env:
-      DOCKER_REPO: devrel-docker
+      DOCKER_REPO: devrel-docker-local
       IMAGE_NAME: devrel
       JF_URL: https://${{ vars.JF_URL }}/
       DOCKER_BUILD_SUMMARY: false
