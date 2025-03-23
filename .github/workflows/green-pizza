@@ -1,0 +1,84 @@
+name: Green Pizza
+on:
+  workflow_dispatch:
+permissions:
+  actions: read # for detecting the Github Actions environment.
+  id-token: write # for creating OIDC tokens for signing.
+  packages: write # for uploading attestations.
+  security-events: write # Required for uploading code scanning
+  attestations: write
+  contents: read
+
+jobs:
+  build-publish-docker:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REPO: devrel-docker
+      IMAGE_NAME: devrel
+      JF_URL: https://${{ vars.JF_URL }}/
+      DOCKER_BUILD_SUMMARY: false
+      DOCKER_BUILD_RECORD_UPLOAD: false
+      JFROG_CLI_LOG_LEVEL: DEBUG
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+
+    - name: Setup JFrog CLI
+      uses: jfrog/setup-jfrog-cli@v4
+      id: setup-cli
+      env:
+        JF_URL: https://${{ vars.JF_URL }}/
+      with:
+        oidc-provider-name: jfrog-github-oidc
+    
+    - name: Set CLI Config
+      run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
+
+    - name: build webapp
+      run: |
+         jf npm ci
+         jf npm publish
+         npm run build
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Authenticate Docker
+      uses: docker/login-action@v3
+      with:
+         registry: ${{ vars.JF_URL }}
+         username: ${{ steps.setup-cli.outputs.oidc-user }}
+         password: ${{ steps.setup-cli.outputs.oidc-token }}
+
+    - name: Pull Grafana image
+      run: docker pull docker.io/grafana/grafana:8.1.0
+
+    - name: Tag Grafana image
+      run: docker tag docker.io/grafana/grafana:8.1.0 ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/green-pizza:8.1.0
+
+    - name: Push Grafana image to private repo
+      run: docker push ${{ vars.JF_URL }}/devrel-docker-local/green-pizza:8.1.0
+        
+        
+    - name: add docker package to build
+      run: |
+           echo "${{ vars.JF_URL }}/devrel-docker-local/green-pizza:8.1.0" > metadata.json
+           jf rt build-docker-create devrel-docker-local --image-file metadata.json
+           
+    - name: publish build info
+      run: |
+           jf rt build-collect-env
+           jf rt build-add-git
+           jf rt build-publish
+
+    - name: Sleep for 60 seconds
+      if: ${{ false }}
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '60s'
+        
+    - name: build scan
+      if: ${{ false }}
+      run: |
+            jf build-scan --vuln --fail=false
