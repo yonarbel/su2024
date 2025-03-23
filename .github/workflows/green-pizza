@@ -31,15 +31,6 @@ jobs:
         JF_URL: https://${{ vars.JF_URL }}/
       with:
         oidc-provider-name: jfrog-github-oidc
-    
-    - name: Set CLI Config
-      run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
-
-    - name: build webapp
-      run: |
-         jf npm ci
-         jf npm publish
-         npm run build
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
