@@ -54,8 +54,9 @@ jobs:
         
     - name: add docker package to build
       run: |
-           echo "${{ vars.JF_URL }}/devrel-docker-local/green-pizza:8.1.0" > metadata.json
-           jf rt build-docker-create devrel-docker-local --image-file metadata.json
+          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/green-pizza:8.1.0 | cut -d'@' -f2)
+          echo "${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}@${DIGEST}" > metadata.json
+          jf rt build-docker-create devrel-docker-local --image-file metadata.json
            
     - name: publish build info
       run: |
