@@ -43,18 +43,18 @@ jobs:
          password: ${{ steps.setup-cli.outputs.oidc-token }}
 
     - name: Pull Grafana image
-      run: docker pull docker.io/grafana/grafana:8.1.0
+      run: docker pull docker.io/grafana/grafana:11.1.4
 
     - name: Tag Grafana image
-      run: docker tag docker.io/grafana/grafana:8.1.0 ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/green-pizza:8.1.0
+      run: docker tag docker.io/grafana/grafana:11.1.4 ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/green-pizza:11.1.4
 
     - name: Push Grafana image to private repo
-      run: docker push ${{ vars.JF_URL }}/devrel-docker-local/green-pizza:8.1.0
+      run: docker push ${{ vars.JF_URL }}/devrel-docker-local/green-pizza:11.1.4
         
         
     - name: add docker package to build
       run: |
-          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/green-pizza:8.1.0 | cut -d'@' -f2)
+          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/green-pizza:11.1.4 | cut -d'@' -f2)
           echo "${{ vars.JF_URL }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}@${DIGEST}" > metadata.json
           jf rt build-docker-create devrel-docker-local --image-file metadata.json
            
