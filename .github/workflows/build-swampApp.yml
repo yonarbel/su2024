@@ -35,7 +35,7 @@ jobs:
       env:
         JF_URL: https://${{ vars.JF_URL }}/
       with:
-        oidc-provider-name: jfrog-github-oidc
+        oidc-provider-name: yonarbel/su2024@github
     
     - name: Set CLI Config
       run: jf npm-config --global=true --repo-resolve=devrel-npm --repo-deploy=devrel-npm
